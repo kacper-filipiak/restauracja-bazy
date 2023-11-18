@@ -2,9 +2,8 @@ package pl.pwr.edu.restauracja_app;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import pl.pwr.edu.restauracja_app.domain.GetProductTypesUseCase;
+import pl.pwr.edu.restauracja_app.domain.GetMenuUseCase;
 
-import java.util.ArrayList;
 
 
 public class HelloController {
@@ -13,14 +12,10 @@ public class HelloController {
     @FXML
     protected void onHelloButtonClick() {
     //welcomeText.setText("Welcome to JavaFX Application!");
-        GetProductTypesUseCase useCase = new GetProductTypesUseCase();
-        GetProductTypesUseCase.Params params = new GetProductTypesUseCase.Params();
-        ArrayList<String> result = useCase.execute(params);
-        if(result.isEmpty()) {
-            welcomeText.setText("Empty response");
-        } else {
-            welcomeText.setText(result.stream().reduce((x, y) -> x + y).toString());
-        }
+        GetMenuUseCase useCase = new GetMenuUseCase();
+        GetMenuUseCase.Params params = new GetMenuUseCase.Params();
+        Integer result = useCase.execute(params);
+            welcomeText.setText(result.toString());
     }
 
     @FXML

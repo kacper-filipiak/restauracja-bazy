@@ -68,3 +68,10 @@ CREATE TABLE IF NOT EXISTS skladniki_dania (
   FOREIGN KEY (id_dania) REFERENCES danie (id_dania),
   FOREIGN KEY (id_definicji_produktu) REFERENCES definicje_produktów (id_definicja));
   
+DELIMITER $$
+CREATE PROCEDURE IF NOT EXISTS get_menu()
+BEGIN
+  SELECT COUNT(*) FROM menu;
+END $$
+DELIMITER ;
+ 
