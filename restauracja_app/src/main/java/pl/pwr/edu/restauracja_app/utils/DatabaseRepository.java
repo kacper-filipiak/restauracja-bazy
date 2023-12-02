@@ -8,7 +8,7 @@ public class DatabaseRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/restauracja-db", "admin", "admin");
+                    "jdbc:mysql://[::1]/restauracja_db", "root", "root");
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {
