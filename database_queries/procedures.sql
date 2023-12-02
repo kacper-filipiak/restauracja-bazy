@@ -1,3 +1,4 @@
+USE restauracja_db;
 DELIMITER $$
  DROP PROCEDURE IF EXISTS get_menu;
  CREATE PROCEDURE get_menu()
@@ -67,6 +68,25 @@ END; $$
   CALL get_id_dania_by_nazwa(input, v_id_dania);
   INSERT INTO menu (cena, id_dania) VALUES (p_cena, v_id_dania);
  
+  END; $$
+  
+  DROP PROCEDURE IF EXISTS add_kelner;
+  CREATE PROCEDURE add_kelner(
+     IN p_login varchar(256), 
+     IN p_haslo varchar(256)
+ )
+ BEGIN
+    DECLARE `_HOST` CHAR(14) DEFAULT '@\'%\'';
+    SET `p_login` := CONCAT('\'', REPLACE(TRIM(`p_login`), CHAR(39), CONCAT(CHAR(92), CHAR(39))), '\''),
+    `p_haslo` := CONCAT('\'', REPLACE(`p_haslo`, CHAR(39), CONCAT(CHAR(92), CHAR(39))), '\'');
+    SET @`sql` := CONCAT('CREATE USER ', `p_login`, `_HOST`, ' IDENTIFIED BY ', `p_haslo`);
+    PREPARE `stmt` FROM @`sql`;
+    EXECUTE `stmt`;
+    SET @`sql` := CONCAT('GRANT EXECUTE ON PROCEDURE restauracja_db.get_menu TO ', p_login, _HOST); 
+    PREPARE `stmt` FROM @`sql`;
+    EXECUTE `stmt`;
+    DEALLOCATE PREPARE `stmt`;
+  FLUSH PRIVILEGES;
   END; $$
  
 -- DELIMITER ;
