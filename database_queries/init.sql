@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS stoliki (
 CREATE TABLE IF NOT EXISTS zamowienia (
   id_zamowienia     int(10) NOT NULL AUTO_INCREMENT, 
   id_stolika        int(10), 
-  status_zamowienia int(3), 
-  data_zamowienia   int(10), 
+  status_zamowienia int(3) DEFAULT 1, 
+  data_zamowienia   DATETIME DEFAULT CURRENT_TIMESTAMP, 
   stoliki           int(10) NOT NULL, 
   PRIMARY KEY (id_zamowienia),
   FOREIGN KEY (stoliki) REFERENCES stoliki (id_stolika));
