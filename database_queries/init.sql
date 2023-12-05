@@ -1,18 +1,6 @@
 CREATE DATABASE IF NOT EXISTS restauracja_db;
 USE restauracja_db;
 
-CREATE TABLE IF NOT EXISTS  role (
-  id_roli int(10) NOT NULL AUTO_INCREMENT, 
-  nazwa   varchar(256) UNIQUE, 
-  PRIMARY KEY (id_roli));
-CREATE TABLE IF NOT EXISTS uzytkownicy (
-  id_uzytkownika int(10) NOT NULL AUTO_INCREMENT, 
-  login          varchar(256) UNIQUE, 
-  haslo          varchar(256), 
-  rola           int(10), 
-  id_roli int(10) NOT NULL, 
-  PRIMARY KEY (id_uzytkownika),
-  FOREIGN KEY (id_roli) REFERENCES role (id_roli));
 CREATE TABLE IF NOT EXISTS stoliki (
   id_stolika     int(10) NOT NULL AUTO_INCREMENT, 
   status_stolika int(2), 

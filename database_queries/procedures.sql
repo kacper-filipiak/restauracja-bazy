@@ -80,7 +80,7 @@ END; $$
   END; $$
    
   DROP PROCEDURE IF EXISTS ustaw_status_zamowienia;
-  CREATE PROCEDURE ustaw_status_do_wydania(IN p_id_zamowienia INT(10), IN p_status INT(3))
+  CREATE PROCEDURE ustaw_status_zamowienia(IN p_id_zamowienia INT(10), IN p_status INT(3))
   BEGIN
     UPDATE zamowienia SET status_zamowienia = p_status WHERE id_zmowienia = p_id_zamowienia;
   END; $$
@@ -89,13 +89,13 @@ END; $$
   DROP PROCEDURE IF EXISTS ustaw_status_do_wydania;
   CREATE PROCEDURE ustaw_status_do_wydania(IN p_id_zamowienia INT(10))
   BEGIN
-   ustaw_status_zamowienia(p_id_zamowienia, 2); 
+   CALL ustaw_status_zamowienia(p_id_zamowienia, 1); 
   END; $$
  
   DROP PROCEDURE IF EXISTS ustaw_status_wydane;
   CREATE PROCEDURE ustaw_status_wydane(IN p_id_zamowienia INT(10))
   BEGIN
-   ustaw_status_zamowienia(p_id_zamowienia, 3); 
+   CALL ustaw_status_zamowienia(p_id_zamowienia, 2); 
   END; $$
   
   DROP PROCEDURE IF EXISTS utworz_zamowienie;
@@ -106,7 +106,7 @@ END; $$
   END; $$
 
   DROP PROCEDURE IF EXISTS dodaj_danie_do_zamowienia;
-  CREATE PROCEDURE utworz_zamowienie(IN p_id_zamowienia INT(10), IN nazwa_dania VARCHAR(256))
+  CREATE PROCEDURE dodaj_danie_do_zamowienia(IN p_id_zamowienia INT(10), IN nazwa_dania VARCHAR(256))
   BEGIN
   DECLARE v_id_dania int(10);
  
@@ -166,7 +166,7 @@ END; $$
   CALL get_id_dania_by_nazwa(input, v_id_dania); 
   SELECT definicje_produktow.nazwa, zuzywana_ilosc FROM definicje_produktow 
   INNER JOIN skladniki_dania ON id_definicja = id_definicji_produktu 
-  INNER JOIN danie.id_dania = v_id_dania;
+  INNER JOIN danie ON danie.id_dania = v_id_dania;
   END; $$
 
 
