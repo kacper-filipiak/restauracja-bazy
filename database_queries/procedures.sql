@@ -117,9 +117,9 @@ END; $$
   END; $$
 
   DROP PROCEDURE IF EXISTS sprawdz_dostepnosc_skladnika;
-  CREATE PROCEDURE sprawdz_dostepnosc_skladnika(IN p_nazwa_skladnika VARCHAR(256), IN p_ilosc INT(10))
+  CREATE PROCEDURE sprawdz_dostepnosc_skladnika(IN p_nazwa_skladnika VARCHAR(256), IN p_ilosc FLOAT)
   BEGIN
-    SELECT IF(SUM(ilosc)>p_ilosc,TRUE,FALSE) FROM produkty INNER JOIN definicje_produktow ON typ = id_definicja WHERE nazwa LIKE p_nazwa_skladnika GROUP BY id_definicja;
+    SELECT IF(SUM(ilosc)>p_ilosc,TRUE,FALSE) AS dostepny FROM produkty INNER JOIN definicje_produktow ON typ = definicje_produktow.id_definicja WHERE nazwa LIKE p_nazwa_skladnika GROUP BY definicje_produktow.id_definicja;
   END; $$
 
  
