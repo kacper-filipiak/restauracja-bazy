@@ -281,6 +281,9 @@ END; $$
     CALL grant_access_to_procedure(p_login, _HOST, 'dodaj_produkt');
     CALL grant_access_to_procedure(p_login, _HOST, 'insert_danie');
     CALL grant_access_to_procedure(p_login, _HOST, 'insert_definicja_produkut');
+    CALL grant_access_to_procedure(p_login, _HOST, 'usun_produkt');
+    CALL grant_access_to_procedure(p_login, _HOST, 'usun_pozycje_z_menu');
+    CALL grant_access_to_procedure(p_login, _HOST, 'usun_definicje_skladnika');
   FLUSH PRIVILEGES;
   END; $$
 
