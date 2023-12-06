@@ -35,8 +35,8 @@ END; $$
 
 
  
-  DROP PROCEDURE IF EXISTS add_produkt_to_danie;
-  CREATE PROCEDURE add_produkt_to_danie(
+  DROP PROCEDURE IF EXISTS dodaj_produkt_to_danie;
+  CREATE PROCEDURE dodaj_produkt_to_danie(
      IN p_nazwa_dania varchar(256), 
      IN p_nazwa_skladnika varchar(256), 
      IN p_ilosc float
@@ -55,8 +55,8 @@ END; $$
   END; $$
  
  
-  DROP PROCEDURE IF EXISTS add_danie_to_menu;
-  CREATE PROCEDURE add_danie_to_menu(
+  DROP PROCEDURE IF EXISTS dodaj_danie_to_menu;
+  CREATE PROCEDURE dodaj_danie_to_menu(
      IN nazwa_dania varchar(256), 
      IN p_cena float
  )
@@ -172,13 +172,48 @@ END; $$
 
 
 
-
-
+  -- Przyznanie dostepu do procedury uzytkownikowi
+  DROP PROCEDURE IF EXISTS grant_access_to_procedure;
+  CREATE PROCEDURE grant_access_to_procedure(IN p_login VARCHAR(256), IN p_host VARCHAR(14), IN p_procedura VARCHAR(256))
+  BEGIN
+    SET @`sql` := CONCAT('GRANT EXECUTE ON PROCEDURE restauracja_db.', p_procedura,' TO ', p_login, p_host); 
+    PREPARE `stmt` FROM @`sql`;
+    EXECUTE `stmt`;
+    DEALLOCATE PREPARE `stmt`;
+END; $$
  
-
-    
-  DROP PROCEDURE IF EXISTS add_kelner;
-  CREATE PROCEDURE add_kelner(
+-- Dodanie urzytkownika o roli kelner
+  DROP PROCEDURE IF EXISTS dodaj_kelner;
+  CREATE PROCEDURE dodaj_kelner(
+     IN p_login varchar(256), 
+     IN p_haslo varchar(256)
+ )
+ BEGIN
+    -- Wybor adresu hosta (akceptuj wszystkie)
+    DECLARE `_HOST` CHAR(14) DEFAULT '@\'%\'';
+    SET `p_login` := CONCAT('\'', REPLACE(TRIM(`p_login`), CHAR(39), CONCAT(CHAR(92), CHAR(39))), '\''),
+    `p_haslo` := CONCAT('\'', REPLACE(`p_haslo`, CHAR(39), CONCAT(CHAR(92), CHAR(39))), '\'');
+    -- Dodanie urzytkownika do bazy danych
+    SET @`sql` := CONCAT('CREATE USER ', `p_login`, `_HOST`, ' IDENTIFIED BY ', `p_haslo`);
+    PREPARE `stmt` FROM @`sql`;
+    EXECUTE `stmt`;
+    -- Nadanie dostepu do procedur
+    CALL grant_access_to_procedure(p_login, _HOST, 'get_menu');
+    CALL grant_access_to_procedure(p_login, _HOST, 'dodaj_danie_do_zamowienia');
+    CALL grant_access_to_procedure(p_login, _HOST, 'ustaw_status_wydane');
+    CALL grant_access_to_procedure(p_login, _HOST, 'utworz_zamowienie');
+    CALL grant_access_to_procedure(p_login, _HOST, 'wygeneruj_rachunek');
+    CALL grant_access_to_procedure(p_login, _HOST, 'zajmij_stolik');
+    CALL grant_access_to_procedure(p_login, _HOST, 'zwolnij_stolik');
+    CALL grant_access_to_procedure(p_login, _HOST, 'sprawdz_dostepnosc_skladnika');
+    CALL grant_access_to_procedure(p_login, _HOST, 'get_skladniki_dania');
+    -- Zaaplikowanie dostepow
+  FLUSH PRIVILEGES;
+  END; $$
+ 
+  -- Dodanie urzytkownika o roli kucharz  
+  DROP PROCEDURE IF EXISTS dodaj_kucharz;
+  CREATE PROCEDURE dodaj_kelner(
      IN p_login varchar(256), 
      IN p_haslo varchar(256)
  )
@@ -189,10 +224,9 @@ END; $$
     SET @`sql` := CONCAT('CREATE USER ', `p_login`, `_HOST`, ' IDENTIFIED BY ', `p_haslo`);
     PREPARE `stmt` FROM @`sql`;
     EXECUTE `stmt`;
-    SET @`sql` := CONCAT('GRANT EXECUTE ON PROCEDURE restauracja_db.get_menu TO ', p_login, _HOST); 
-    PREPARE `stmt` FROM @`sql`;
-    EXECUTE `stmt`;
-    DEALLOCATE PREPARE `stmt`;
+    CALL grant_access_to_procedure(p_login, _HOST, 'get_skladniki_dania');
+    CALL grant_access_to_procedure(p_login, _HOST, 'ustaw_status_do_wydania');
+    CALL grant_access_to_procedure(p_login, _HOST, 'wyswietl_zamowienia');
   FLUSH PRIVILEGES;
   END; $$
    
@@ -200,7 +234,7 @@ END; $$
 
 -- CALL insert_definicja_produktu("kg", "sól");
 -- CALL insert_danie("chleb i sól");
--- CALL add_produkt_to_danie('chleb i sól', 'sól', 0.01);
--- CALL add_danie_to_menu("chleb i sól", 30.5);
+-- CALL dodaj_produkt_to_danie('chleb i sól', 'sól', 0.01);
+-- CALL dodaj_danie_to_menu("chleb i sól", 30.5);
 CALL get_menu();
 -- CALL getAll();
