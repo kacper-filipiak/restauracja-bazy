@@ -229,7 +229,29 @@ END; $$
     CALL grant_access_to_procedure(p_login, _HOST, 'wyswietl_zamowienia');
   FLUSH PRIVILEGES;
   END; $$
-   
+
+  -- Dodanie użytkownika o roli zarządca  
+  DROP PROCEDURE IF EXISTS dodaj_zarzadca;
+  CREATE PROCEDURE dodaj_zarzadca(
+     IN p_login varchar(256), 
+     IN p_haslo varchar(256)
+ )
+ BEGIN
+    DECLARE `_HOST` CHAR(14) DEFAULT '@\'%\'';
+    SET `p_login` := CONCAT('\'', REPLACE(TRIM(`p_login`), CHAR(39), CONCAT(CHAR(92), CHAR(39))), '\''),
+    `p_haslo` := CONCAT('\'', REPLACE(`p_haslo`, CHAR(39), CONCAT(CHAR(92), CHAR(39))), '\'');
+    SET @`sql` := CONCAT('CREATE USER ', `p_login`, `_HOST`, ' IDENTIFIED BY ', `p_haslo`);
+    PREPARE `stmt` FROM @`sql`;
+    EXECUTE `stmt`;
+    CALL grant_access_to_procedure(p_login, _HOST, 'dodaj_danie_to_menu');
+    CALL grant_access_to_procedure(p_login, _HOST, 'dodaj_kelner');
+    CALL grant_access_to_procedure(p_login, _HOST, 'dodaj_produkt_to_danie');
+    CALL grant_access_to_procedure(p_login, _HOST, 'dodaj_produkt');
+    CALL grant_access_to_procedure(p_login, _HOST, 'insert_danie');
+    CALL grant_access_to_procedure(p_login, _HOST, 'insert_definicja_produkut');
+  FLUSH PRIVILEGES;
+  END; $$
+
 -- DELIMITER ;
 
 -- CALL insert_definicja_produktu("kg", "sól");
