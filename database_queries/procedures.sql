@@ -1,5 +1,37 @@
 USE restauracja_db;
 DELIMITER $$
+
+
+ DROP PROCEDURE IF EXISTS usun_pozycje_z_menu;
+ CREATE PROCEDURE usun_pozycje_z_menu(IN p_nazwa_dania VARCHAR(256))
+ BEGIN
+ DECLARE v_id_dania int(10);
+  DECLARE input VARCHAR(256);
+  SET input = `p_nazwa_dania`;
+  CALL get_id_dania_by_nazwa(input, v_id_dania);
+ DELETE FROM menu WHERE id_dania = v_id_dania;
+ END $$
+
+ DROP PROCEDURE IF EXISTS usun_definicje_skladnika;
+ CREATE PROCEDURE usun_definicje_skladnika(IN p_nazwa_definicji VARCHAR(256))
+ BEGIN
+ DECLARE v_id_definicji_skladnika int(10);
+  DECLARE input VARCHAR(256);
+  SET input = `p_nazwa_definicji`;
+  CALL get_id_definicji_skladnika_by_nazwa(input, v_id_definicji_skladnika);
+ DELETE FROM definicje_produktow WHERE id_definicja = v_id_definicji_skladnika;
+ END $$
+
+ DROP PROCEDURE IF EXISTS usun_produkt;
+ CREATE PROCEDURE usun_produkt(IN p_id_produktu INT(10))
+ BEGIN
+ DELETE FROM produkty WHERE id_produkt = p_id_produktu;
+ END $$
+
+
+
+
+
  DROP PROCEDURE IF EXISTS get_menu;
  CREATE PROCEDURE get_menu()
  BEGIN
@@ -213,7 +245,7 @@ END; $$
  
   -- Dodanie urzytkownika o roli kucharz  
   DROP PROCEDURE IF EXISTS dodaj_kucharz;
-  CREATE PROCEDURE dodaj_kelner(
+  CREATE PROCEDURE dodaj_kucharz(
      IN p_login varchar(256), 
      IN p_haslo varchar(256)
  )
