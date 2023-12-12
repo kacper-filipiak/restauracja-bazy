@@ -14,9 +14,3 @@ services:
     command: --default-authentication-plugin=mysql_native_password --init-file="/data/application/init.sql" --general-log=ON --slow-query-log=ON
     volumes:
       - ./database_queries/init.sql:/data/application/init.sql
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
