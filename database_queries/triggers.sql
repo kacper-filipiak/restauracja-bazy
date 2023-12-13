@@ -23,14 +23,14 @@ END; $$
 
 DROP TRIGGER IF EXISTS weryfikuj_produkt_insert;
 CREATE TRIGGER weryfikuj_produkt_insert 
-BEFORE INSERT ON Produkty FOR EACH ROW 
+BEFORE INSERT ON produkty FOR EACH ROW 
 BEGIN 
 	CALL weryfikuj_produkt(NEW.ilosc, NEW.data_waznosci);
 END; $$
 
 DROP TRIGGER IF EXISTS weryfikuj_produkt_update;
 CREATE TRIGGER weryfikuj_produkt_update 
-BEFORE UPDATE ON Produkty FOR EACH ROW 
+BEFORE UPDATE ON produkty FOR EACH ROW 
 BEGIN 
 	CALL weryfikuj_produkt(NEW.ilosc, NEW.data_waznosci);
 END; $$
