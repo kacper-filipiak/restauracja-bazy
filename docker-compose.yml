@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mysql:
     restart: always
-    image: mysql
+    image: mysql:8.0
     environment:
         - MYSQL_DATABASE=${MYSQL_DATABASE}
         - MYSQL_USER=${MYSQL_USER}
@@ -11,6 +11,8 @@ services:
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     ports:
       - "${MYSQL_PORT}:3306"
+    expose:
+      - '3306'
     command: --default-authentication-plugin=mysql_native_password --init-file="/data/application/init.sql" --general-log=ON --slow-query-log=ON
     volumes:
       - ./database_queries/init.sql:/data/application/init.sql
