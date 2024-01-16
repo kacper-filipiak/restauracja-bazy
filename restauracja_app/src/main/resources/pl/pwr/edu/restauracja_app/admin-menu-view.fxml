@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx"
+          prefHeight="400.0" prefWidth="600.0">
+    <padding>
+        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+    </padding>
+    <HBox alignment="CENTER">
+        <VBox alignment="TOP_CENTER" styleClass="border-vbox">
+            <VBox styleClass="header-vbox">
+                <Label text="UŻYTKOWNIK"></Label>
+            </VBox>
+            <VBox styleClass="padding-vbox">
+                <Button text="DODAJ UŻYTKOWNIKA" styleClass="padding-button"></Button>
+                <Button text="EDYTUJ UŻYTKOWNIKA" styleClass="padding-button"></Button>
+                <Button text="USUN UŻYTKOWNIKA" styleClass="padding-button"></Button>
+            </VBox>
+        </VBox>
+        <VBox alignment="TOP_CENTER" styleClass="border-vbox">
+            <VBox styleClass="header-vbox">
+                <Label text="MENU"></Label>
+            </VBox>
+            <VBox styleClass="padding-vbox">
+                <Button text="DODAJ POZYCJĘ" styleClass="padding-button"></Button>
+                <Button text="EDYTUJ POZYCJĘ" styleClass="padding-button"></Button>
+                <Button text="USUŃ POZYCJĘ" styleClass="padding-button"></Button>
+            </VBox>
+        </VBox>
+        <VBox alignment="TOP_CENTER" styleClass="border-vbox">
+            <VBox styleClass="header-vbox">
+                <Label text="MAGAZYN"></Label>
+            </VBox>
+            <VBox styleClass="padding-vbox">
+                <Button text="ZAKTUALIZUJ STAN MAGAZYNU" styleClass="padding-button"></Button>
+                <Button text="DODAJ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
+                <Button text="EDYTUJ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
+                <Button text="USUŃ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
+            </VBox>
+        </VBox>
+    </HBox>
+
+</GridPane>

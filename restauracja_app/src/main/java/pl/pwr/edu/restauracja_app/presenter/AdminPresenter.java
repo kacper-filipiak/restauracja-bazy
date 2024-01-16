@@ -38,9 +38,43 @@ public class AdminPresenter {
 		throw new UnsupportedOperationException();
 	}
 
-	public AdminPresenter() {
-		// TODO - implement AdminPresenter.AdminPresenter
-		throw new UnsupportedOperationException();
+	public AdminPresenter() {}
+	public AdminPresenter(
+			DodajDanieDoMenuUseCase dodajDanieDoMenuUseCase,
+	UsunDanieZMenuUseCase usunDanieZMenuUseCase,
+	PobierzDanieZMenuUseCase pobierzDanieZMenuUseCase,
+	AktualizujDanieWMenuUseCase aktualizujDanieWMenuUseCase,
+	DodajUzytkownikaUseCase dodajUzytkownikaUseCase,
+	AktualizujUzytkownikaUseCase aktualizujUzytkownikaUseCase,
+	UsunUzytkownikaUseCase usunUzytkownikaUseCase,
+	DodajDefinicjeSkladnikaUseCase dodajDefinicjeSkaldnikaUseCase,
+	PobierzDefinicjeSkladnikaUseCase pobierzDefinicjeSkladnikaUseCase,
+	AktualizujDefinicjeSkladnikaUseCase aktualizujDefinicjeSkladnikaUseCase,
+	UsunDefinicjeSkladnikaUseCase usunDefinicjeSkladnikaUseCase,
+	DodajSkladikUseCase dodajSkladnikUseCase,
+	AktualizujSkladikUseCase aktualizujSkladnikUseCase,
+	PobierzSkladnikiUseCase pobierzSkladnikiUSeCase,
+	UsunSkladikUseCase usunSkladnikUseCase,
+	UserHelper userHelper,
+	NavHelper navHelper
+	) {
+		this.dodajDanieDoMenuUseCase = dodajDanieDoMenuUseCase;
+		this.usunDanieZMenuUseCase = usunDanieZMenuUseCase;
+		this.pobierzDanieZMenuUseCase = pobierzDanieZMenuUseCase;
+		this.aktualizujDanieWMenuUseCase = aktualizujDanieWMenuUseCase;
+		this.dodajUzytkownikaUseCase = dodajUzytkownikaUseCase;
+		this.aktualizujUzytkownikaUseCase = aktualizujUzytkownikaUseCase;
+		this.usunUzytkownikaUseCase = usunUzytkownikaUseCase;
+		this.dodajDefinicjeSkaldnikaUseCase = dodajDefinicjeSkaldnikaUseCase;
+		this.pobierzDefinicjeSkladnikaUseCase = pobierzDefinicjeSkladnikaUseCase;
+		this.aktualizujDefinicjeSkladnikaUseCase = aktualizujDefinicjeSkladnikaUseCase;
+		this.usunDefinicjeSkladnikaUseCase = usunDefinicjeSkladnikaUseCase;
+		this.dodajSkladnikUseCase = dodajSkladnikUseCase;
+		this.aktualizujSkladnikUseCase = aktualizujSkladnikUseCase;
+		this.pobierzSkladnikiUSeCase = pobierzSkladnikiUSeCase;
+		this.usunSkladnikUseCase = usunSkladnikUseCase;
+		this.userHelper = userHelper;
+		this.navHelper = navHelper;
 	}
 
 	public void onEdytujUzytkownika() {
