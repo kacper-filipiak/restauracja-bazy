@@ -1,0 +1,27 @@
+.border-vbox {
+  -fx-border-insets: 10;
+  -fx-border-style: solid;
+  -fx-border-width: 4;
+  -fx-border-color: #5A5A5A;
+}
+
+.padding-vbox {
+  -fx-alignment: center;
+  -fx-padding: 10;
+}
+
+.header-vbox {
+  -fx-background-color: #C0C0C0;
+  -fx-alignment: center;
+  -fx-fill-width: true;
+  -fx-background-insets: 2;
+}
+
+.padding-button {
+  -fx-border-insets: 10;
+  -fx-border-radius: 5;
+  -fx-background-insets: 10;
+  -fx-border-style: solid;
+  -fx-border-width: 1;
+  -fx-border-color: #5A5A5A;
+}

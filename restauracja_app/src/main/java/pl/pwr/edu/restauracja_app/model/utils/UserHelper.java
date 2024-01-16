@@ -29,4 +29,7 @@ public class UserHelper {
 		throw new UnsupportedOperationException();
 	}
 
+	public Uzytkownik getUzytkownik() {
+		return uzytkownik;
+	}
 }
