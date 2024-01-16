@@ -1,11 +1,10 @@
-package pl.pwr.edu.restauracja_app.domain;
+package pl.pwr.edu.restauracja_app.old.domain;
 
-import pl.pwr.edu.restauracja_app.base.BaseUseCase;
-import pl.pwr.edu.restauracja_app.utils.DatabaseRepository;
+import pl.pwr.edu.restauracja_app.old.BaseUseCase;
+import pl.pwr.edu.restauracja_app.old.utils.DatabaseRepository;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GetProductTypesUseCase implements BaseUseCase<ArrayList<String>, GetProductTypesUseCase.Params> {
     @Override

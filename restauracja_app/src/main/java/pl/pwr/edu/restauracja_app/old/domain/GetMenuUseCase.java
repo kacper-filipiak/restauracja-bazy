@@ -1,10 +1,11 @@
-package pl.pwr.edu.restauracja_app.domain;
+package pl.pwr.edu.restauracja_app.old.domain;
 
-import pl.pwr.edu.restauracja_app.base.BaseUseCase;
-import pl.pwr.edu.restauracja_app.utils.DatabaseRepository;
+import pl.pwr.edu.restauracja_app.old.BaseUseCase;
+import pl.pwr.edu.restauracja_app.old.utils.DatabaseRepository;
 
 import java.sql.SQLException;
 import java.util.concurrent.atomic.AtomicReference;
+
 
 public class GetMenuUseCase implements BaseUseCase<Integer, GetMenuUseCase.Params> {
 
@@ -12,10 +13,11 @@ public class GetMenuUseCase implements BaseUseCase<Integer, GetMenuUseCase.Param
     public Integer execute(GetMenuUseCase.Params params) {
         AtomicReference<Integer> result = null;
         try {
-            DatabaseRepository.ExecuteQuery("CALL get_menu();", a -> {
+            DatabaseRepository.ExecuteQuery("SELECT 1;", a -> {
                 try {
                     result.set(a.getInt(1));
                 } catch (SQLException e) {
+                    System.out.println(e.getLocalizedMessage());
                     throw new RuntimeException(e);
                 }
             });

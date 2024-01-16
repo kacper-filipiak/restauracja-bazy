@@ -1,8 +1,8 @@
-package pl.pwr.edu.restauracja_app;
+package pl.pwr.edu.restauracja_app.old;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import pl.pwr.edu.restauracja_app.domain.GetMenuUseCase;
+import pl.pwr.edu.restauracja_app.old.domain.GetMenuUseCase;
 
 
 
@@ -11,11 +11,10 @@ public class HelloController {
     private Label welcomeText;
     @FXML
     protected void onHelloButtonClick() {
-    //welcomeText.setText("Welcome to JavaFX Application!");
         GetMenuUseCase useCase = new GetMenuUseCase();
         GetMenuUseCase.Params params = new GetMenuUseCase.Params();
         Integer result = useCase.execute(params);
-            welcomeText.setText(result.toString());
+            welcomeText.setText(result == null ? "NULL" : result.toString());
     }
 
     @FXML

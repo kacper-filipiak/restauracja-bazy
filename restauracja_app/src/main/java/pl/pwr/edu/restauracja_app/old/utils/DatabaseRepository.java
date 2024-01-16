@@ -1,4 +1,4 @@
-package pl.pwr.edu.restauracja_app.utils;
+package pl.pwr.edu.restauracja_app.old.utils;
 
 import java.sql.*;
 import java.util.function.Consumer;
@@ -8,7 +8,7 @@ public class DatabaseRepository {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://[::1]/restauracja_db", "root", "root");
+                    "jdbc:mysql://localhost/restauracja_db", "root", "root");
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while(rs.next()) {

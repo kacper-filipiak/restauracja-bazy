@@ -1,6 +1,4 @@
-package pl.pwr.edu.restauracja_app;
-
-import java.sql.*;
+package pl.pwr.edu.restauracja_app.old;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +18,9 @@ public class App extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+    }
+    public void fun(Void param) {
+
     }
 
     public static void main(String[] args) {
