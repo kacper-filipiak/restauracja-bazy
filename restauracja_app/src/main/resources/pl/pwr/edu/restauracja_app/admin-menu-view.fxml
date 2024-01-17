@@ -36,7 +36,7 @@
             </VBox>
             <VBox styleClass="padding-vbox">
                 <Button text="ZAKTUALIZUJ STAN MAGAZYNU" styleClass="padding-button"></Button>
-                <Button text="DODAJ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
+                <Button text="DODAJ DEFINICJE SKLADNIKA" id="dodajDefinicjeSkladnikaBtn" styleClass="padding-button" onAction="#onDodajDefinicjeSkaldnika"></Button>
                 <Button text="EDYTUJ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
                 <Button text="USUŃ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
             </VBox>

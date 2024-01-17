@@ -18,8 +18,6 @@ public class LoginPresenter {
 	}
 
 	public LoginPresenter() {
-		// TODO - implement LoginPresenter.LoginPresenter
-		throw new UnsupportedOperationException();
 	}
 
 }

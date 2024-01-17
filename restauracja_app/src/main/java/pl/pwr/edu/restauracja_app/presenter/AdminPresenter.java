@@ -1,5 +1,6 @@
 package pl.pwr.edu.restauracja_app.presenter;
 
+import javafx.event.ActionEvent;
 import pl.pwr.edu.restauracja_app.NavHelper;
 import pl.pwr.edu.restauracja_app.model.domain.*;
 import pl.pwr.edu.restauracja_app.model.utils.UserHelper;
@@ -38,7 +39,11 @@ public class AdminPresenter {
 		throw new UnsupportedOperationException();
 	}
 
-	public AdminPresenter() {}
+	public AdminPresenter(
+			NavHelper navHelper
+	) {
+		this.navHelper = navHelper;
+	}
 	public AdminPresenter(
 			DodajDanieDoMenuUseCase dodajDanieDoMenuUseCase,
 	UsunDanieZMenuUseCase usunDanieZMenuUseCase,
@@ -161,9 +166,11 @@ public class AdminPresenter {
 		throw new UnsupportedOperationException();
 	}
 
-	public void onDodajDefinicjeSkaldnika() {
+	public void onDodajDefinicjeSkaldnika(ActionEvent event) {
 		// TODO - implement AdminPresenter.onDodajDefinicjeSkaldnika
-		throw new UnsupportedOperationException();
+		System.out.println("Dodaje definicje skladnika");
+		navHelper.navigateTo("dodaj-definicje-skladnika-view");
+//		throw new UnsupportedOperationException();
 	}
 
 	/**
