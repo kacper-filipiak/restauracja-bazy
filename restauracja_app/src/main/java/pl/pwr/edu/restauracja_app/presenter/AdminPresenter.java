@@ -1,11 +1,25 @@
 package pl.pwr.edu.restauracja_app.presenter;
 
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleSetProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ObservableStringValue;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.TextField;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import pl.pwr.edu.restauracja_app.NavHelper;
 import pl.pwr.edu.restauracja_app.model.datamodels.DefinicjaSkladnika;
 import pl.pwr.edu.restauracja_app.model.domain.*;
 import pl.pwr.edu.restauracja_app.model.utils.UserHelper;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class AdminPresenter {
 
@@ -44,11 +58,13 @@ public class AdminPresenter {
     public AdminPresenter(
             NavHelper navHelper,
             DodajDefinicjeSkladnikaUseCase dodajDefinicjeSkladnikaUseCase,
-            UsunDefinicjeSkladnikaUseCase usunDefinicjeSkladnikaUseCase
+            UsunDefinicjeSkladnikaUseCase usunDefinicjeSkladnikaUseCase,
+            PobierzDefinicjeSkladnikaUseCase pobierzDefinicjeSkladnikaUseCase
     ) {
         this.navHelper = navHelper;
         this.dodajDefinicjeSkladnikaUseCase = dodajDefinicjeSkladnikaUseCase;
         this.usunDefinicjeSkladnikaUseCase = usunDefinicjeSkladnikaUseCase;
+        this.pobierzDefinicjeSkladnikaUseCase = pobierzDefinicjeSkladnikaUseCase;
     }
 
     public AdminPresenter(
@@ -186,13 +202,20 @@ public class AdminPresenter {
 
     public void onEdytujDefinicjeSkladnika() {
         // TODO - implement AdminPresenter.onEdytujDefinicjeSkladnika
-        throw new UnsupportedOperationException();
+        List<DefinicjaSkladnika> definicjaSkladnikaList = pobierzDefinicjeSkladnikaUseCase.execute( null );
+        navHelper.navigateTo("edytuj-definicja-skladnika-view");
+        System.out.println("In edytuj definicje");
+        ObservableList<DefinicjaSkladnika> items = FXCollections.observableArrayList(definicjaSkladnikaList);
+        TableView<DefinicjaSkladnika> definicjaSkladnikaListView = (TableView) navHelper.getFromCurrentSceneById("definicjaSkladnikaTable");
+        TableColumn<DefinicjaSkladnika, String> columnNazwa = (TableColumn<DefinicjaSkladnika, String>) definicjaSkladnikaListView.getColumns().get(0);
+        columnNazwa.setCellValueFactory((param -> new SimpleObjectProperty<>(param.getValue().nazwa())));
+        TableColumn<DefinicjaSkladnika, String> columnJednostka = (TableColumn<DefinicjaSkladnika, String>) definicjaSkladnikaListView.getColumns().get(1);
+        columnJednostka.setCellValueFactory((param -> new SimpleObjectProperty<>(param.getValue().jednostka())));
+        definicjaSkladnikaListView.setItems(items);
     }
 
-    /**
-     * @param String
-     */
-    public void onZatwierdzEdytujDefinicjeSkladnika(int[] String) {
+    public void onZatwierdzEdytujDefinicjeSkladnika(ActionEvent actionEvent) {
+        onCancel();
         // TODO - implement AdminPresenter.onZatwierdzEdytujDefinicjeSkladnika
         throw new UnsupportedOperationException();
     }
@@ -200,17 +223,17 @@ public class AdminPresenter {
     public void onUsunDefinicjeSkladnika() {
         // TODO - implement AdminPresenter.onUsunDefinicjeSladnika
         System.out.println("usuwanie definicji skladnika");
+        List<DefinicjaSkladnika> definicjaSkladnikaList = pobierzDefinicjeSkladnikaUseCase.execute( null );
+        ObservableList<String> items = FXCollections.observableArrayList(definicjaSkladnikaList.stream().map(DefinicjaSkladnika::nazwa).collect(Collectors.toList()));
         navHelper.navigateTo("usun-definicje-skladnika-view");
+        ListView<String> definicjaSkladnikaListView = (ListView<String>) navHelper.getFromCurrentSceneById("definicjaSkladnikaList");
+        definicjaSkladnikaListView.setItems(items);
     }
-
-    /**
-     * @param String
-     */
     public void onZatwierdzUsunDefinicjeSladnika(ActionEvent actionEvent) {
         // TODO - implement AdminPresenter.onZatwierdzUsunDefinicjeSladnika
         usunDefinicjeSkladnikaUseCase.execute(
                 new UsunDefinicjeSkladnikaUseCase.Params(
-                        ((TextField) navHelper.getFromCurrentSceneById("nazwaTextField")).getText()
+                        ((ListView<String>) navHelper.getFromCurrentSceneById("definicjaSkladnikaList")).getSelectionModel().getSelectedItem()
                 )
         );
         onCancel();
@@ -224,5 +247,4 @@ public class AdminPresenter {
         // TODO - implement AdminPresenter.onLogout
         throw new UnsupportedOperationException();
     }
-
 }

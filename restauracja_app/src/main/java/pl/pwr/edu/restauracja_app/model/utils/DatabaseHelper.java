@@ -1,6 +1,7 @@
 package pl.pwr.edu.restauracja_app.model.utils;
 
 import java.sql.*;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -32,6 +33,9 @@ public class DatabaseHelper {
         userHelper = _userHelper;
     }
 
+    static public String formatProcedureCallQuery(String procedureName) {
+        return formatProcedureCallQuery(procedureName, Collections.emptyList());
+    }
     static public String formatProcedureCallQuery(String procedureName, List<Object> parameters) {
         if (!parameters.isEmpty()) {
             return "CALL " + procedureName + "('" + parameters.stream().reduce((acc, elem) -> acc + "', '" + elem).get() + "');";

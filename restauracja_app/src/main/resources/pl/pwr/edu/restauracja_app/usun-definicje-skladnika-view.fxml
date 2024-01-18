@@ -2,13 +2,14 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.SelectionModel?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             prefHeight="400.0" prefWidth="600.0">
     <VBox>
         <HBox>
             <Label text="Nazwa"/>
-            <TextField id="nazwaTextField"/>
+            <ListView id="definicjaSkladnikaList"/>
         </HBox>
         <HBox>
             <Button styleClass="padding-button" text="Cofnij" onAction="#onCancel"/>
