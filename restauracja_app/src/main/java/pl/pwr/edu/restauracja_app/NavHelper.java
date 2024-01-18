@@ -33,8 +33,8 @@ public class NavHelper {
 			FXMLLoader fxmlLoader = new FXMLLoader(Applikacja.class.getResource(filename));
 			fxmlLoader.setController(controller);
 			screenMap.put(name, fxmlLoader.load());
-		} catch (IOException ignored) {
-			System.err.println("Can't read view file: " + filename);
+		} catch (IOException e) {
+			System.err.println("Can't read view file: " + filename + "\n" + e.getMessage());
 		}
 	}
 

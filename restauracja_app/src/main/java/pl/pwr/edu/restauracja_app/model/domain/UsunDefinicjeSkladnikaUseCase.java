@@ -1,21 +1,35 @@
 package pl.pwr.edu.restauracja_app.model.domain;
 
-public class UsunDefinicjeSkladnikaUseCase {
+import pl.pwr.edu.restauracja_app.model.base.BaseUseCase;
+import pl.pwr.edu.restauracja_app.model.utils.DatabaseHelper;
 
-	/**
-	 * 
-	 * @param Params
-	 */
-	public Boolean execute(int Params) {
-		// TODO - implement UsunDefinicjeSkladnikaUseCase.execute
-		throw new UnsupportedOperationException();
-	}
+import java.sql.SQLException;
+import java.util.List;
 
+public class UsunDefinicjeSkladnikaUseCase implements BaseUseCase<Boolean, UsunDefinicjeSkladnikaUseCase.Params> {
+    DatabaseHelper databaseHelper;
 
-	public class Params {
+    public UsunDefinicjeSkladnikaUseCase(DatabaseHelper databaseHelper) {
+        this.databaseHelper = databaseHelper;
+    }
 
-		private String nazwaDefinicjiSkladnika;
-
-	}
+    /**
+     * @return true if action succeeded and false if error occurred
+     */
+    public Boolean execute(UsunDefinicjeSkladnikaUseCase.Params params) {
+        try {
+            String query = DatabaseHelper.formatProcedureCallQuery(
+                    "usun_definicje_skladnika",
+                    List.of(params.nazwaDefinicjiSkladnika)
+            );
+            databaseHelper.executeQuery(query, System.out::println);
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    public record Params(String nazwaDefinicjiSkladnika) {
+    }
 
 }

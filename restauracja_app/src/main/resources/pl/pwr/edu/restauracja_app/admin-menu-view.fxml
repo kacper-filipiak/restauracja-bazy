@@ -38,7 +38,7 @@
                 <Button text="ZAKTUALIZUJ STAN MAGAZYNU" styleClass="padding-button"></Button>
                 <Button text="DODAJ DEFINICJE SKLADNIKA" id="dodajDefinicjeSkladnikaBtn" styleClass="padding-button" onAction="#onDodajDefinicjeSkaldnika"></Button>
                 <Button text="EDYTUJ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
-                <Button text="USUŃ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
+                <Button text="USUŃ DEFINICJE SKLADNIKA" styleClass="padding-button" onAction="#onUsunDefinicjeSkladnika"></Button>
             </VBox>
         </VBox>
     </HBox>

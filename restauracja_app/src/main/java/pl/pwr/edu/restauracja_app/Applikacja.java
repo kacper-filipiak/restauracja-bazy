@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import pl.pwr.edu.restauracja_app.model.datamodels.Rola;
 import pl.pwr.edu.restauracja_app.model.datamodels.Uzytkownik;
 import pl.pwr.edu.restauracja_app.model.domain.DodajDefinicjeSkladnikaUseCase;
+import pl.pwr.edu.restauracja_app.model.domain.UsunDefinicjeSkladnikaUseCase;
 import pl.pwr.edu.restauracja_app.model.utils.DatabaseHelper;
 import pl.pwr.edu.restauracja_app.model.utils.UserHelper;
 import pl.pwr.edu.restauracja_app.presenter.*;
@@ -31,10 +32,15 @@ public class Applikacja extends Application {
 		navHelper = new NavHelper(scene);
 		UserHelper userHelper = new UserHelper(new Uzytkownik("root", "root", Rola.Admin, true));
 		DatabaseHelper databaseHelper = new DatabaseHelper(userHelper);
-		adminPresenter = new AdminPresenter(navHelper, new DodajDefinicjeSkladnikaUseCase(databaseHelper));
+		adminPresenter = new AdminPresenter(
+				navHelper,
+				new DodajDefinicjeSkladnikaUseCase(databaseHelper),
+				new UsunDefinicjeSkladnikaUseCase(databaseHelper)
+		);
 		navHelper.addScreen("login-view", "login-view.fxml", loginPresenter);
 		navHelper.addScreen("admin-menu-view", "admin-menu-view.fxml", adminPresenter);
 		navHelper.addScreen("dodaj-definicje-skladnika-view", "dodaj-definicje-skladnika-view.fxml", adminPresenter);
+		navHelper.addScreen("usun-definicje-skladnika-view", "usun-definicje-skladnika-view.fxml", adminPresenter);
 		navHelper.navigateTo("admin-menu-view");
 		stage.show();
 	}

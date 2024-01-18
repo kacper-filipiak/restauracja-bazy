@@ -43,10 +43,12 @@ public class AdminPresenter {
 
     public AdminPresenter(
             NavHelper navHelper,
-            DodajDefinicjeSkladnikaUseCase dodajDefinicjeSkladnikaUseCase
+            DodajDefinicjeSkladnikaUseCase dodajDefinicjeSkladnikaUseCase,
+            UsunDefinicjeSkladnikaUseCase usunDefinicjeSkladnikaUseCase
     ) {
         this.navHelper = navHelper;
         this.dodajDefinicjeSkladnikaUseCase = dodajDefinicjeSkladnikaUseCase;
+        this.usunDefinicjeSkladnikaUseCase = usunDefinicjeSkladnikaUseCase;
     }
 
     public AdminPresenter(
@@ -179,6 +181,7 @@ public class AdminPresenter {
                         )
                 )
         );
+        onCancel();
     }
 
     public void onEdytujDefinicjeSkladnika() {
@@ -194,17 +197,23 @@ public class AdminPresenter {
         throw new UnsupportedOperationException();
     }
 
-    public void onUsunDefinicjeSladnika() {
+    public void onUsunDefinicjeSkladnika() {
         // TODO - implement AdminPresenter.onUsunDefinicjeSladnika
-        throw new UnsupportedOperationException();
+        System.out.println("usuwanie definicji skladnika");
+        navHelper.navigateTo("usun-definicje-skladnika-view");
     }
 
     /**
      * @param String
      */
-    public void onZatwierdzUsunDefinicjeSladnika(int[] String) {
+    public void onZatwierdzUsunDefinicjeSladnika(ActionEvent actionEvent) {
         // TODO - implement AdminPresenter.onZatwierdzUsunDefinicjeSladnika
-        throw new UnsupportedOperationException();
+        usunDefinicjeSkladnikaUseCase.execute(
+                new UsunDefinicjeSkladnikaUseCase.Params(
+                        ((TextField) navHelper.getFromCurrentSceneById("nazwaTextField")).getText()
+                )
+        );
+        onCancel();
     }
 
     public void onCancel() {
