@@ -13,11 +13,8 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.8.2'
+    junitVersion = '5.9.2'
 }
-
-sourceCompatibility = '16'
-targetCompatibility = '16'
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -38,7 +35,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-    implementation 'mysql:mysql-connector-java:8.0.33'
+    //implementation 'mysql:mysql-connector-java:8.0.33'
+    implementation fileTree(dir: 'lib', include: '*.jar')
 
 }
 
@@ -57,3 +55,4 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
+

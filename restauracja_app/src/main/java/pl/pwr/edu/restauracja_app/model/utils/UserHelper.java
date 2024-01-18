@@ -9,6 +9,9 @@ public class UserHelper {
 	private Uzytkownik uzytkownik;
 	private ZalogujUzytkownikaUseCase zalogujUzytkownikaUseCase;
 
+	public UserHelper(Uzytkownik uzytkownik) {
+		this.uzytkownik= uzytkownik;
+	}
 	/**
 	 * 
 	 * @param nazwa

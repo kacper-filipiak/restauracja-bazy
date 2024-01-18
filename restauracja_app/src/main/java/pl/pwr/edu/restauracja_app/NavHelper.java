@@ -1,18 +1,21 @@
 package pl.pwr.edu.restauracja_app;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import pl.pwr.edu.restauracja_app.presenter.AdminPresenter;
-import pl.pwr.edu.restauracja_app.presenter.LoginPresenter;
 
 import java.io.IOException;
 import java.util.HashMap;
 
 public class NavHelper {
 
-	private HashMap<String, Pane> screenMap = new HashMap<>();
-	private Scene main;
+	private final HashMap<String, Pane> screenMap = new HashMap<>();
+	private final Scene main;
+
+	public Node getFromCurrentSceneById(String id) {
+		return main.lookup("#" + id);
+	}
 
 	public NavHelper(Scene main) {
 		this.main = main;
@@ -21,25 +24,22 @@ public class NavHelper {
 		if (screenMap.containsKey(name)) {
 			activate(name);
 		} else {
-			throw new IllegalArgumentException("Expected registered view name");
+			throw new IllegalArgumentException("Expected registered view name, got: " + name);
 		}
 	}
 
-	public void addScreen(String name, String filename, Object controller) throws IOException {
+	public void addScreen(String name, String filename, Object controller) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(Applikacja.class.getResource(filename));
 			fxmlLoader.setController(controller);
 			screenMap.put(name, fxmlLoader.load());
 		} catch (IOException ignored) {
-
+			System.err.println("Can't read view file: " + filename);
 		}
-	}
-
-	private void removeScreen(String name){
-		screenMap.remove(name);
 	}
 
 	private void activate(String name){
 		main.setRoot( screenMap.get(name) );
 	}
+
 }
