@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.pwr.edu.restauracja_app.model.datamodels.Rola;
 import pl.pwr.edu.restauracja_app.model.datamodels.Uzytkownik;
+import pl.pwr.edu.restauracja_app.model.domain.AktualizujDefinicjeSkladnikaUseCase;
 import pl.pwr.edu.restauracja_app.model.domain.DodajDefinicjeSkladnikaUseCase;
 import pl.pwr.edu.restauracja_app.model.domain.PobierzDefinicjeSkladnikaUseCase;
 import pl.pwr.edu.restauracja_app.model.domain.UsunDefinicjeSkladnikaUseCase;
@@ -37,7 +38,8 @@ public class Applikacja extends Application {
 				navHelper,
 				new DodajDefinicjeSkladnikaUseCase(databaseHelper),
 				new UsunDefinicjeSkladnikaUseCase(databaseHelper),
-				new PobierzDefinicjeSkladnikaUseCase(databaseHelper)
+				new PobierzDefinicjeSkladnikaUseCase(databaseHelper),
+				new AktualizujDefinicjeSkladnikaUseCase(databaseHelper)
 		);
 		navHelper.addScreen("login-view", "login-view.fxml", loginPresenter);
 		navHelper.addScreen("admin-menu-view", "admin-menu-view.fxml", adminPresenter);

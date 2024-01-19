@@ -59,12 +59,14 @@ public class AdminPresenter {
             NavHelper navHelper,
             DodajDefinicjeSkladnikaUseCase dodajDefinicjeSkladnikaUseCase,
             UsunDefinicjeSkladnikaUseCase usunDefinicjeSkladnikaUseCase,
-            PobierzDefinicjeSkladnikaUseCase pobierzDefinicjeSkladnikaUseCase
+            PobierzDefinicjeSkladnikaUseCase pobierzDefinicjeSkladnikaUseCase,
+            AktualizujDefinicjeSkladnikaUseCase aktualizujDefinicjeSkladnikaUseCase
     ) {
         this.navHelper = navHelper;
         this.dodajDefinicjeSkladnikaUseCase = dodajDefinicjeSkladnikaUseCase;
         this.usunDefinicjeSkladnikaUseCase = usunDefinicjeSkladnikaUseCase;
         this.pobierzDefinicjeSkladnikaUseCase = pobierzDefinicjeSkladnikaUseCase;
+        this.aktualizujDefinicjeSkladnikaUseCase = aktualizujDefinicjeSkladnikaUseCase;
     }
 
     public AdminPresenter(
@@ -202,7 +204,7 @@ public class AdminPresenter {
 
     public void onEdytujDefinicjeSkladnika() {
         // TODO - implement AdminPresenter.onEdytujDefinicjeSkladnika
-        List<DefinicjaSkladnika> definicjaSkladnikaList = pobierzDefinicjeSkladnikaUseCase.execute( null );
+        List<DefinicjaSkladnika> definicjaSkladnikaList = pobierzDefinicjeSkladnikaUseCase.execute(null);
         navHelper.navigateTo("edytuj-definicja-skladnika-view");
         System.out.println("In edytuj definicje");
         ObservableList<DefinicjaSkladnika> items = FXCollections.observableArrayList(definicjaSkladnikaList);
@@ -215,20 +217,28 @@ public class AdminPresenter {
     }
 
     public void onZatwierdzEdytujDefinicjeSkladnika(ActionEvent actionEvent) {
+        aktualizujDefinicjeSkladnikaUseCase.execute(
+                new AktualizujDefinicjeSkladnikaUseCase.Params(
+                        new DefinicjaSkladnika(
+                                ((TextField) navHelper.getFromCurrentSceneById("nazwaTextField")).getText(),
+                                ((TextField) navHelper.getFromCurrentSceneById("jednostkaTextField")).getText()
+                                ),
+                        ((TableView<DefinicjaSkladnika>) navHelper.getFromCurrentSceneById("definicjaSkladnikaTable")).getSelectionModel().getSelectedItem().nazwa()
+
+                ));
         onCancel();
-        // TODO - implement AdminPresenter.onZatwierdzEdytujDefinicjeSkladnika
-        throw new UnsupportedOperationException();
     }
 
     public void onUsunDefinicjeSkladnika() {
         // TODO - implement AdminPresenter.onUsunDefinicjeSladnika
         System.out.println("usuwanie definicji skladnika");
-        List<DefinicjaSkladnika> definicjaSkladnikaList = pobierzDefinicjeSkladnikaUseCase.execute( null );
+        List<DefinicjaSkladnika> definicjaSkladnikaList = pobierzDefinicjeSkladnikaUseCase.execute(null);
         ObservableList<String> items = FXCollections.observableArrayList(definicjaSkladnikaList.stream().map(DefinicjaSkladnika::nazwa).collect(Collectors.toList()));
         navHelper.navigateTo("usun-definicje-skladnika-view");
         ListView<String> definicjaSkladnikaListView = (ListView<String>) navHelper.getFromCurrentSceneById("definicjaSkladnikaList");
         definicjaSkladnikaListView.setItems(items);
     }
+
     public void onZatwierdzUsunDefinicjeSladnika(ActionEvent actionEvent) {
         // TODO - implement AdminPresenter.onZatwierdzUsunDefinicjeSladnika
         usunDefinicjeSkladnikaUseCase.execute(

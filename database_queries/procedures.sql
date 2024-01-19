@@ -29,7 +29,17 @@ DELIMITER $$
  END $$
 
 
+DROP PROCEDURE IF EXISTS update_definicje_skladnika;
+CREATE PROCEDURE update_definicje_skladnika(IN p_old_nazwa VARCHAR(256), IN p_nazwa VARCHAR(256), IN p_jednostka VARCHAR(256))
+BEGIN 
+    UPDATE definicje_produktow SET nazwa = p_nazwa, jednostka = p_jednostka WHERE nazwa = p_old_nazwa;
+END $$
 
+DROP PROCEDURE IF EXISTS get_definicje_skladnika;
+CREATE PROCEDURE get_definicje_skladnika()
+BEGIN 
+    SELECT nazwa, jednostka FROM definicje_produktow;
+END $$
 
 
  DROP PROCEDURE IF EXISTS get_menu;
@@ -184,7 +194,7 @@ END; $$
   BEGIN
   DECLARE v_id_definicji_skladnika int(10);
   DECLARE input VARCHAR(256);
-  SET input = p_nazwa_skladnika;
+  SET input = p_nazwa;
   CALL get_id_definicji_skladnika_by_nazwa(input, v_id_definicji_skladnika); 
   INSERT INTO produkty (ilosc, id_definicja, data_waznosci) VALUES (p_ilosc, v_id_definicji_skladnika, p_data_waznosci);
   END; $$

@@ -14,10 +14,20 @@
         <HBox>
             <TableView id="definicjaSkladnikaTable">
                 <columns>
-                <TableColumn text="Nazwa"/>
-                <TableColumn text="Jednostka"/>
+                    <TableColumn text="Nazwa"/>
+                    <TableColumn text="Jednostka"/>
                 </columns>
             </TableView>
+            <VBox>
+                <HBox>
+                    <Label text="Nazwa"/>
+                    <TextField id="nazwaTextField"/>
+                </HBox>
+                <HBox>
+                    <Label text="Jednostka"/>
+                    <TextField id="jednostkaTextField"/>
+                </HBox>
+            </VBox>
         </HBox>
         <HBox>
             <Button styleClass="padding-button" text="Cofnij" onAction="#onCancel"/>
