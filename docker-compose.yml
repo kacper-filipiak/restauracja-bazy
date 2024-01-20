@@ -9,6 +9,8 @@ services:
         - MYSQL_USER=${MYSQL_USER}
         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_ALLOW_PUBLIC_KEY_Retrieval="true"
+        - MYSQL_ssl_ciphersuites="TLS_RSA_WITH_AES_128_CBC_SHA256"
     ports:
       - "${MYSQL_PORT}:3306"
     expose:

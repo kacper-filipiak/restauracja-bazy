@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS produkty (
   data_waznosci                      date, 
   id_definicja int(10) NOT NULL, 
   PRIMARY KEY (id_produkt),
-  FOREIGN KEY (id_definicja) REFERENCES definicje_produktow (id_definicja));
+  FOREIGN KEY (id_definicja) REFERENCES definicje_produktow (id_definicja) ON UPDATE CASCADE);
 CREATE TABLE IF NOT EXISTS  danie (
   id_dania    int(10) NOT NULL AUTO_INCREMENT, 
   nazwa_dania varchar(256) UNIQUE NOT NULL, 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS  skladniki_dania (
   PRIMARY KEY (id_definicji_produktu, 
   danie_id),
   FOREIGN KEY (danie_id) REFERENCES danie (id_dania) ON DELETE CASCADE,
-  FOREIGN KEY (id_definicji_produktu) REFERENCES definicje_produktow (id_definicja));
+  FOREIGN KEY (id_definicji_produktu) REFERENCES definicje_produktow (id_definicja) ON UPDATE CASCADE);
 CREATE TABLE IF NOT EXISTS  zamowienia_danie (
   zamowienia_id int(10) NOT NULL, 
   danie_id           int(10) NOT NULL, 

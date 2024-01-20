@@ -10,6 +10,7 @@ DELIMITER $$
   SET input = `p_nazwa_dania`;
   CALL get_id_dania_by_nazwa(input, v_id_dania);
  DELETE FROM menu WHERE id_dania = v_id_dania;
+ DELETE FROM danie WHERE id_dania = v_id_dania;
  END $$
 
  DROP PROCEDURE IF EXISTS usun_definicje_skladnika;
@@ -29,7 +30,17 @@ DELIMITER $$
  END $$
 
 
+DROP PROCEDURE IF EXISTS update_definicje_skladnika;
+CREATE PROCEDURE update_definicje_skladnika(IN p_old_nazwa VARCHAR(256), IN p_nazwa VARCHAR(256), IN p_jednostka VARCHAR(256))
+BEGIN 
+    UPDATE definicje_produktow SET nazwa = p_nazwa, jednostka = p_jednostka WHERE nazwa = p_old_nazwa;
+END $$
 
+DROP PROCEDURE IF EXISTS get_definicje_skladnika;
+CREATE PROCEDURE get_definicje_skladnika()
+BEGIN 
+    SELECT nazwa, jednostka FROM definicje_produktow;
+END $$
 
 
  DROP PROCEDURE IF EXISTS get_menu;
@@ -86,17 +97,17 @@ END; $$
  
   END; $$
  
- 
   DROP PROCEDURE IF EXISTS dodaj_danie_to_menu;
   CREATE PROCEDURE dodaj_danie_to_menu(
-     IN nazwa_dania varchar(256), 
+     IN p_nazwa_dania varchar(256), 
      IN p_cena float
  )
  BEGIN
  DECLARE v_id_dania int(10);
  
   DECLARE input VARCHAR(256);
-  SET input := nazwa_dania;
+  INSERT INTO danie (nazwa_dania) VALUES (p_nazwa_dania);
+  SET input := p_nazwa_dania;
   CALL get_id_dania_by_nazwa(input, v_id_dania);
   INSERT INTO menu (cena, id_dania) VALUES (p_cena, v_id_dania);
  
@@ -184,10 +195,30 @@ END; $$
   BEGIN
   DECLARE v_id_definicji_skladnika int(10);
   DECLARE input VARCHAR(256);
-  SET input = p_nazwa_skladnika;
+  SET input = p_nazwa;
   CALL get_id_definicji_skladnika_by_nazwa(input, v_id_definicji_skladnika); 
   INSERT INTO produkty (ilosc, id_definicja, data_waznosci) VALUES (p_ilosc, v_id_definicji_skladnika, p_data_waznosci);
   END; $$
+
+  DROP PROCEDURE IF EXISTS update_produkt;
+  CREATE PROCEDURE update_produkt(IN p_nazwa VARCHAR(256), IN p_ilosc FLOAT, IN p_data_waznosci DATE)
+  BEGIN
+  DECLARE v_id_definicji_skladnika int(10);
+  DECLARE input VARCHAR(256);
+  SET input = p_nazwa;
+  CALL get_id_definicji_skladnika_by_nazwa(input, v_id_definicji_skladnika); 
+  UPDATE produkty SET ilosc = p_ilosc WHERE id_definicja=v_id_definicji_skladnika AND data_waznosci = p_data_waznosci;
+  END; $$
+
+
+ 
+  DROP PROCEDURE IF EXISTS get_produkt;
+  CREATE PROCEDURE get_produkt()
+  BEGIN
+    SELECT nazwa, ilosc, jednostka, data_waznosci FROM produkty INNER JOIN definicje_produktow ON produkty.id_definicja = definicje_produktow.id_definicja;
+  END; $$
+
+ 
 
   DROP PROCEDURE IF EXISTS get_skladniki_dania;
   CREATE PROCEDURE get_skladniki_dania(IN p_nazwa VARCHAR(256))

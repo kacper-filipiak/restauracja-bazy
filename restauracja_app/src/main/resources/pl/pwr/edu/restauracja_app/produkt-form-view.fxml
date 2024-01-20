@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -9,15 +12,19 @@
     <VBox>
         <HBox>
             <Label text="Nazwa"/>
-            <TextField id="nazwaTextField"/>
+            <ComboBox id="typComboBox"/>
         </HBox>
         <HBox>
-            <Label text="Jednostka"/>
-            <TextField id="jednostkaTextField"/>
+            <Label text="Ilość"/>
+            <TextField id="iloscTextField"/>
+        </HBox>
+        <HBox>
+            <Label text="Data ważności"/>
+            <TextField id="dataTextField"/>
         </HBox>
         <HBox>
             <Button styleClass="padding-button" text="Cofnij" onAction="#onCancel"/>
-            <Button styleClass="padding-button" text="Zatwierdz" onAction="#onZatwierdzDodajDefinicjeSkaldnika"/>
+            <Button styleClass="padding-button" text="Zatwierdz" onAction="#onZatwierdzDodajProdukt"/>
         </HBox>
     </VBox>
 </AnchorPane>

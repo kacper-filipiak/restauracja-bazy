@@ -12,33 +12,33 @@
     <HBox alignment="CENTER">
         <VBox alignment="TOP_CENTER" styleClass="border-vbox">
             <VBox styleClass="header-vbox">
-                <Label text="UŻYTKOWNIK"></Label>
+                <Label text="UŻYTKOWNIK"/>
             </VBox>
             <VBox styleClass="padding-vbox">
-                <Button text="DODAJ UŻYTKOWNIKA" styleClass="padding-button"></Button>
-                <Button text="EDYTUJ UŻYTKOWNIKA" styleClass="padding-button"></Button>
-                <Button text="USUN UŻYTKOWNIKA" styleClass="padding-button"></Button>
+                <Button text="DODAJ UŻYTKOWNIKA" styleClass="padding-button"/>
+                <Button text="EDYTUJ UŻYTKOWNIKA" styleClass="padding-button"/>
+                <Button text="USUN UŻYTKOWNIKA" styleClass="padding-button"/>
             </VBox>
         </VBox>
         <VBox alignment="TOP_CENTER" styleClass="border-vbox">
             <VBox styleClass="header-vbox">
-                <Label text="MENU"></Label>
+                <Label text="MENU"/>
             </VBox>
             <VBox styleClass="padding-vbox">
-                <Button text="DODAJ POZYCJĘ" styleClass="padding-button"></Button>
-                <Button text="EDYTUJ POZYCJĘ" styleClass="padding-button"></Button>
-                <Button text="USUŃ POZYCJĘ" styleClass="padding-button"></Button>
+                <Button text="DODAJ POZYCJĘ" styleClass="padding-button" onAction="#onDodajPozycje"/>
+                <Button text="EDYTUJ POZYCJĘ" styleClass="padding-button"/>
+                <Button text="USUŃ POZYCJĘ" styleClass="padding-button" onAction="#onUsunPozycje"/>
             </VBox>
         </VBox>
         <VBox alignment="TOP_CENTER" styleClass="border-vbox">
             <VBox styleClass="header-vbox">
-                <Label text="MAGAZYN"></Label>
+                <Label text="MAGAZYN"/>
             </VBox>
             <VBox styleClass="padding-vbox">
-                <Button text="ZAKTUALIZUJ STAN MAGAZYNU" styleClass="padding-button"></Button>
-                <Button text="DODAJ DEFINICJE SKLADNIKA" id="dodajDefinicjeSkladnikaBtn" styleClass="padding-button" onAction="#onDodajDefinicjeSkaldnika"></Button>
-                <Button text="EDYTUJ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
-                <Button text="USUŃ DEFINICJE SKLADNIKA" styleClass="padding-button"></Button>
+                <Button text="ZAKTUALIZUJ STAN MAGAZYNU" styleClass="padding-button" onAction="#onZaktualizujStanMagazynu"/>
+                <Button text="DODAJ DEFINICJE SKLADNIKA" id="dodajDefinicjeSkladnikaBtn" styleClass="padding-button" onAction="#onDodajDefinicjeSkaldnika"/>
+                <Button text="EDYTUJ DEFINICJE SKLADNIKA" styleClass="padding-button" onAction="#onEdytujDefinicjeSkladnika"/>
+                <Button text="USUŃ DEFINICJE SKLADNIKA" styleClass="padding-button" onAction="#onUsunDefinicjeSkladnika"/>
             </VBox>
         </VBox>
     </HBox>

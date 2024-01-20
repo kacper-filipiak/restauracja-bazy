@@ -1,21 +1,34 @@
 package pl.pwr.edu.restauracja_app.model.domain;
 
-public class UsunDanieZMenuUseCase {
+import pl.pwr.edu.restauracja_app.model.base.BaseUseCase;
+import pl.pwr.edu.restauracja_app.model.utils.DatabaseHelper;
 
-	/**
-	 * 
-	 * @param Params
-	 */
-	public Boolean execute(int Params) {
-		// TODO - implement UsunDanieZMenuUseCase.execute
-		throw new UnsupportedOperationException();
-	}
+import java.sql.SQLException;
+import java.util.List;
 
+public class UsunDanieZMenuUseCase implements BaseUseCase<Boolean, UsunDanieZMenuUseCase.Params> {
+    DatabaseHelper databaseHelper;
 
-	public class Params {
+    public UsunDanieZMenuUseCase(DatabaseHelper databaseHelper) {
+        this.databaseHelper = databaseHelper;
+    }
 
-		private String nazwaDania;
-
-	}
-
+    /**
+     * @return true if action succeeded and false if error occurred
+     */
+    public Boolean execute(UsunDanieZMenuUseCase.Params params) {
+        try {
+            String query = DatabaseHelper.formatProcedureCallQuery(
+                    "usun_pozycje_z_menu",
+                    List.of(params.nazwaDania)
+            );
+            databaseHelper.executeQuery(query);
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+    public record Params(String nazwaDania) {
+    }
 }

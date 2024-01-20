@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.pwr.edu.restauracja_app.model.domain.DodajDanieDoMenuUseCase;
-import pl.pwr.edu.restauracja_app.old.App;
-import pl.pwr.edu.restauracja_app.old.HelloController;
+import pl.pwr.edu.restauracja_app.model.datamodels.Rola;
+import pl.pwr.edu.restauracja_app.model.datamodels.Uzytkownik;
+import pl.pwr.edu.restauracja_app.model.domain.*;
+import pl.pwr.edu.restauracja_app.model.utils.DatabaseHelper;
+import pl.pwr.edu.restauracja_app.model.utils.UserHelper;
 import pl.pwr.edu.restauracja_app.presenter.*;
 
 import java.io.IOException;
@@ -27,10 +29,30 @@ public class Applikacja extends Application {
 		stage.setTitle("Restauracja");
 		stage.setScene(scene);
 		navHelper = new NavHelper(scene);
-		adminPresenter = new AdminPresenter(navHelper);
+		UserHelper userHelper = new UserHelper(new Uzytkownik("root", "root", Rola.Admin, true));
+		DatabaseHelper databaseHelper = new DatabaseHelper(userHelper);
+		adminPresenter = new AdminPresenter(
+				navHelper,
+				new DodajDefinicjeSkladnikaUseCase(databaseHelper),
+				new UsunDefinicjeSkladnikaUseCase(databaseHelper),
+				new PobierzDefinicjeSkladnikaUseCase(databaseHelper),
+				new AktualizujDefinicjeSkladnikaUseCase(databaseHelper),
+				new PobierzSkladnikiUseCase(databaseHelper),
+				new AktualizujSkladikUseCase(databaseHelper),
+				new DodajSkladnikUseCase(databaseHelper),
+				new PobierzDanieZMenuUseCase(databaseHelper),
+				new UsunDanieZMenuUseCase(databaseHelper),
+				new DodajDanieDoMenuUseCase(databaseHelper)
+		);
 		navHelper.addScreen("login-view", "login-view.fxml", loginPresenter);
 		navHelper.addScreen("admin-menu-view", "admin-menu-view.fxml", adminPresenter);
 		navHelper.addScreen("dodaj-definicje-skladnika-view", "dodaj-definicje-skladnika-view.fxml", adminPresenter);
+		navHelper.addScreen("usun-definicje-skladnika-view", "usun-definicje-skladnika-view.fxml", adminPresenter);
+		navHelper.addScreen("edytuj-definicja-skladnika-view", "edytuj-definicja-skladnika-view.fxml", adminPresenter);
+		navHelper.addScreen("zaktualizuj-stan-magazynu-view", "zaktualizuj-stan-magazynu-view.fxml", adminPresenter);
+		navHelper.addScreen("produkt-form-view", "produkt-form-view.fxml", adminPresenter);
+		navHelper.addScreen("usun-pozycje-view", "usun-pozycje-view.fxml", adminPresenter);
+		navHelper.addScreen("dodaj-pozycje-view", "dodaj-pozycje-view.fxml", adminPresenter);
 		navHelper.navigateTo("admin-menu-view");
 		stage.show();
 	}
