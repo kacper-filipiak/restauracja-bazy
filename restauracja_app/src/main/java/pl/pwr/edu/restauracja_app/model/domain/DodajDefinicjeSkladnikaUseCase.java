@@ -24,7 +24,7 @@ public class DodajDefinicjeSkladnikaUseCase implements BaseUseCase<Boolean, Doda
                     "insert_definicja_produktu",
                     List.of(params.definicjaSkladnika.jednostka(), params.definicjaSkladnika.nazwa())
             );
-            databaseHelper.executeQuery(query, System.out::println);
+            databaseHelper.executeQuery(query);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
             return false;

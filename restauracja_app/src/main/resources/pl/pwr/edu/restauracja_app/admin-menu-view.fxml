@@ -25,9 +25,9 @@
                 <Label text="MENU"/>
             </VBox>
             <VBox styleClass="padding-vbox">
-                <Button text="DODAJ POZYCJĘ" styleClass="padding-button"/>
+                <Button text="DODAJ POZYCJĘ" styleClass="padding-button" onAction="#onDodajPozycje"/>
                 <Button text="EDYTUJ POZYCJĘ" styleClass="padding-button"/>
-                <Button text="USUŃ POZYCJĘ" styleClass="padding-button"/>
+                <Button text="USUŃ POZYCJĘ" styleClass="padding-button" onAction="#onUsunPozycje"/>
             </VBox>
         </VBox>
         <VBox alignment="TOP_CENTER" styleClass="border-vbox">
@@ -35,7 +35,7 @@
                 <Label text="MAGAZYN"/>
             </VBox>
             <VBox styleClass="padding-vbox">
-                <Button text="ZAKTUALIZUJ STAN MAGAZYNU" styleClass="padding-button"/>
+                <Button text="ZAKTUALIZUJ STAN MAGAZYNU" styleClass="padding-button" onAction="#onZaktualizujStanMagazynu"/>
                 <Button text="DODAJ DEFINICJE SKLADNIKA" id="dodajDefinicjeSkladnikaBtn" styleClass="padding-button" onAction="#onDodajDefinicjeSkaldnika"/>
                 <Button text="EDYTUJ DEFINICJE SKLADNIKA" styleClass="padding-button" onAction="#onEdytujDefinicjeSkladnika"/>
                 <Button text="USUŃ DEFINICJE SKLADNIKA" styleClass="padding-button" onAction="#onUsunDefinicjeSkladnika"/>

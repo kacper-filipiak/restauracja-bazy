@@ -19,7 +19,7 @@ public class AktualizujDefinicjeSkladnikaUseCase implements BaseUseCase<Boolean,
                     "update_definicje_skladnika",
                     List.of(params.poprzedniaNazwaDefinicji, params.definicjaSkladnika.nazwa(), params.definicjaSkladnika.jednostka())
             );
-            databaseHelper.executeQuery(query, System.out::println);
+            databaseHelper.executeQuery(query);
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
             return false;

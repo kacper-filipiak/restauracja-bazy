@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox>
+        <HBox>
+            <Label text="Nazwa"/>
+            <ComboBox id="typComboBox"/>
+        </HBox>
+        <HBox>
+            <Label text="Ilość"/>
+            <TextField id="iloscTextField"/>
+        </HBox>
+        <HBox>
+            <Label text="Data ważności"/>
+            <TextField id="dataTextField"/>
+        </HBox>
+        <HBox>
+            <Button styleClass="padding-button" text="Cofnij" onAction="#onCancel"/>
+            <Button styleClass="padding-button" text="Zatwierdz" onAction="#onZatwierdzDodajProdukt"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

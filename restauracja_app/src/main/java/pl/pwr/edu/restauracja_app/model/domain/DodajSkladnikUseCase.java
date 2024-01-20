@@ -1,26 +1,29 @@
 package pl.pwr.edu.restauracja_app.model.domain;
 
 import pl.pwr.edu.restauracja_app.model.base.BaseUseCase;
+import pl.pwr.edu.restauracja_app.model.datamodels.Skladnik;
 import pl.pwr.edu.restauracja_app.model.utils.DatabaseHelper;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UsunDefinicjeSkladnikaUseCase implements BaseUseCase<Boolean, UsunDefinicjeSkladnikaUseCase.Params> {
+public class DodajSkladnikUseCase implements BaseUseCase<Boolean, DodajSkladnikUseCase.Params> {
+
     DatabaseHelper databaseHelper;
 
-    public UsunDefinicjeSkladnikaUseCase(DatabaseHelper databaseHelper) {
+    public DodajSkladnikUseCase(DatabaseHelper databaseHelper) {
         this.databaseHelper = databaseHelper;
     }
 
     /**
      * @return true if action succeeded and false if error occurred
      */
-    public Boolean execute(UsunDefinicjeSkladnikaUseCase.Params params) {
+    public Boolean execute(DodajSkladnikUseCase.Params params) {
         try {
             String query = DatabaseHelper.formatProcedureCallQuery(
-                    "usun_definicje_skladnika",
-                    List.of(params.nazwaDefinicjiSkladnika)
+                    "dodaj_produkt",
+                    List.of(params.skladnik.definicja().nazwa(), params.skladnik.ilosc(), Date.valueOf(params.skladnik.dataWaznosci()))
             );
             databaseHelper.executeQuery(query);
         } catch (SQLException | ClassNotFoundException e) {
@@ -29,7 +32,10 @@ public class UsunDefinicjeSkladnikaUseCase implements BaseUseCase<Boolean, UsunD
         }
         return true;
     }
-    public record Params(String nazwaDefinicjiSkladnika) {
+
+    public record Params(
+            Skladnik skladnik
+    ) {
     }
 
 }

@@ -28,7 +28,19 @@ public class DatabaseHelper {
             throw e;
         }
     }
-
+    public void executeQuery(String query) throws SQLException, ClassNotFoundException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://" + userHelper.getUzytkownik().nazwa() + ":" + userHelper.getUzytkownik().haslo() + "@[::1]:3306/restauracja_db?protocol=tcp&allowPublicKeyRetrieval=true&useSSL=false");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            throw e;
+        }
+    }
     public DatabaseHelper(UserHelper _userHelper) {
         userHelper = _userHelper;
     }
