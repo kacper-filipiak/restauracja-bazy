@@ -10,6 +10,7 @@ DELIMITER $$
   SET input = `p_nazwa_dania`;
   CALL get_id_dania_by_nazwa(input, v_id_dania);
  DELETE FROM menu WHERE id_dania = v_id_dania;
+ DELETE FROM danie WHERE id_dania = v_id_dania;
  END $$
 
  DROP PROCEDURE IF EXISTS usun_definicje_skladnika;
