@@ -15,6 +15,8 @@ services:
       - "${MYSQL_PORT}:3306"
     expose:
       - '3306'
-    command: --default-authentication-plugin=mysql_native_password --init-file="/data/application/init.sql" --general-log=ON --slow-query-log=ON
+    command: --default-authentication-plugin=mysql_native_password --general-log=ON --slow-query-log=ON
     volumes:
-      - ./database_queries/init.sql:/data/application/init.sql
+      - ./database_queries/init.sql:/docker-entrypoint-initdb.d/0.sql
+      - ./database_queries/procedures.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./database_queries/triggers.sql:/docker-entrypoint-initdb.d/2.sql
